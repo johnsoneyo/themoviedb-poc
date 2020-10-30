@@ -1,0 +1,44 @@
+<app-search></app-search>
+
+<div class="container">
+  <nav aria-label="Page navigation example">
+    <ul class="pagination pg-blue">
+      <li (click)="viewPage(currentPage-1)" [ngClass]="{'disabled': currentPage === 1}" class="page-item">
+        <span class="page-link">Previous</span>
+      </li>
+    
+      <li (click)="viewPage(page)" [ngClass]="{'active': page === currentPage} " *ngFor="let page of pages" class="page-item"><a class="page-link" mdbWavesEffect>{{page}}</a></li>
+      <li (click)="viewPage(currentPage+1)" [ngClass]="{'disabled': currentPage === lastPage}" class="page-item">
+        <a class="page-link" mdbWavesEffect>Next</a>
+      </li>
+    </ul>
+  </nav>
+  
+  <div class="row">
+    <div *ngFor="let movie of movies" class="col-md-6">
+      <!-- <img src="{{imageurl}}{{movie.poster_path}}" /> -->
+      <div style="margin-bottom: 50px;" class="container">
+        <div class="row z-depth-1 rounded mb-0">
+          <div style="padding: 0px;" class="col-4">
+            <img width="150" height="225" src="{{imageurl}}{{movie.poster_path}}" />
+          </div>
+          <div style="padding-top: 20px; " class="col-8 ">
+            <h4>{{movie.title}}</h4>
+            <b>Release Date : {{movie.release_date}}</b>
+            <p >
+              <small class="text-muted ">
+                {{ (movie.overview | slice:0:100)+'..' }}
+              </small>
+            </p>
+            <p>
+              <button type="button"  size="sm" mdbBtn color="light" mdbWavesEffect>More</button>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+ 
+</div>
