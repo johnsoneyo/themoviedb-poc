@@ -10,11 +10,14 @@ import { environment as env } from '../../../environments/environment';
 export class MoviesComponent implements OnInit {
 
   imageurl: string;
+  pagesconfig = new Map<number, any>();
 
   movies: [];
   pages: any;
   currentPage: number
   lastPage: number;
+  showProgress : boolean;
+
   constructor(private movieService: MovieService) {
     this.currentPage = 1;
   }
@@ -22,12 +25,15 @@ export class MoviesComponent implements OnInit {
   ngOnInit(): void {
 
     this.imageurl = env.image_base_url.concat('/w300');
-
     this.getData(this.currentPage);
 
   }
 
   viewPage(page: number) {
+    this.showProgress = true;
+    setTimeout(() => {
+      console.log('Slow down activity to fetch next page');
+    }, 3000 );  
     this.getData(page);
   }
 
@@ -41,7 +47,7 @@ export class MoviesComponent implements OnInit {
         this.pages = Array(data.total_pages).fill(0).map((x, i) => i + 1);
         this.lastPage = data.total_pages;
         this.currentPage = page;
-
+        this.showProgress = false;
       });
 
   }
