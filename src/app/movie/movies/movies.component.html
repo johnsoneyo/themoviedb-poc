@@ -1,37 +1,50 @@
 <app-search></app-search>
-
 <div class="container">
   <nav aria-label="Page navigation example">
     <ul class="pagination pg-blue">
       <li (click)="viewPage(currentPage-1)" [ngClass]="{'disabled': currentPage === 1}" class="page-item">
-        <span class="page-link">Previous</span>
+        <a class="page-link" mdbWavesEffect>Previous</a>
       </li>
-    
-      <li (click)="viewPage(page)" [ngClass]="{'active': page === currentPage} " *ngFor="let page of pages" class="page-item"><a class="page-link" mdbWavesEffect>{{page}}</a></li>
+
+      <li (click)="viewPage(page)" [ngClass]="{'active': page === currentPage} " *ngFor="let page of pages"
+        class="page-item"><a class="page-link" mdbWavesEffect>{{page}}</a></li>
+      <li class="page-item" *ngIf="lastPage > 20">
+        <a class="page-link">...</a>
+      </li>
+      <li (click)="viewPage(page)" class="page-item" *ngIf="currentPage > 20">
+        <a class="page-link">{{currentPage}}</a>
+      </li>
+      <li (click)="viewPage(page)" class="page-item" *ngIf="lastPage > 20">
+        <a class="page-link">{{lastPage}}</a>
+      </li>
       <li (click)="viewPage(currentPage+1)" [ngClass]="{'disabled': currentPage === lastPage}" class="page-item">
         <a class="page-link" mdbWavesEffect>Next</a>
       </li>
     </ul>
   </nav>
-  
+  <mat-progress-bar *ngIf="showProgress" mode="indeterminate"></mat-progress-bar>
   <div class="row">
     <div *ngFor="let movie of movies" class="col-md-6">
-      <!-- <img src="{{imageurl}}{{movie.poster_path}}" /> -->
       <div style="margin-bottom: 50px;" class="container">
         <div class="row z-depth-1 rounded mb-0">
           <div style="padding: 0px;" class="col-4">
-            <img width="150" height="225" src="{{imageurl}}{{movie.poster_path}}" />
+            <img width="150" style=" border-bottom-left-radius: 4px" height="225"
+              src="{{imageurl}}{{movie.poster_path}}" />
           </div>
           <div style="padding-top: 20px; " class="col-8 ">
-            <h4>{{movie.title}}</h4>
+
+            <a [routerLink]="['detail', movie.id]">
+              <h4>{{movie.title}}</h4>
+            </a>
             <b>Release Date : {{movie.release_date}}</b>
-            <p >
+            <p>
               <small class="text-muted ">
                 {{ (movie.overview | slice:0:100)+'..' }}
               </small>
             </p>
+
             <p>
-              <button type="button"  size="sm" mdbBtn color="light" mdbWavesEffect>More</button>
+              <a [routerLink]="['detail', movie.id]" color="light">More</a>
             </p>
           </div>
         </div>
@@ -40,5 +53,5 @@
 
   </div>
 
- 
+
 </div>

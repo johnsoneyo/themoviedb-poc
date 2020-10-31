@@ -10,13 +10,22 @@ import { MoviesComponent } from './movies/movies.component';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { ApikeyInterceptor } from '../apikey.interceptor';
 import { SearchComponent } from './search/search.component';
+import { MoviedetailComponent } from '../movies/moviedetail/moviedetail.component';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
+import {MatDividerModule} from '@angular/material/divider';
+import {MatButtonModule} from '@angular/material/button';
+import { HeaderComponent } from './header/header.component';
+import { LikedmovieComponent } from './likedmovie/likedmovie.component';
+ 
 
 const appRoutes: Routes = [
-  { path: '', component: MoviesComponent }
+  { path: '', component: MoviesComponent },
+  { path: 'detail/:id', component: MoviedetailComponent },
+  {path : 'liked-movies',component: LikedmovieComponent}
 ];
 
 @NgModule({
-  declarations: [HomepageComponent, MoviesComponent, SearchComponent],
+  declarations: [HomepageComponent, MoviesComponent, SearchComponent, MoviedetailComponent, HeaderComponent, LikedmovieComponent],
   exports: [HomepageComponent],
   imports: [
     CommonModule,
@@ -26,8 +35,12 @@ const appRoutes: Routes = [
     MDBBootstrapModule.forRoot(),
     RouterModule.forRoot(
       appRoutes
-    )
-  ],providers: [
+    ),
+    MatProgressBarModule,
+    MatDividerModule,
+    MatButtonModule
+    
+  ], providers: [
     {
       provide: HTTP_INTERCEPTORS,
       useClass: ApikeyInterceptor,

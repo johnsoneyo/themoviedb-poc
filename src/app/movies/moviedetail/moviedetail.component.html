@@ -1,0 +1,48 @@
+<div style="margin-top: 20px; margin-bottom: 20px;" class="container">
+  <div class="container">
+    <div class="row z-depth-1 rounded mb-0">
+      <div *ngIf="$movie | async as movie; else loading" style="padding: 0px;" class="col-md-5">
+        <img style="border-top-left-radius : 4px; border-bottom-left-radius: 4px" width="450" height="720"
+          src="{{$imageurl | async}}" />
+      </div>
+      <div *ngIf="$movie | async as movie; else loading" style="padding: 30px;" class="col-md-7">
+        <h1>{{movie.title}}</h1>
+        <mat-divider></mat-divider>
+
+        <ul class="list-inline">
+          <li class="list-inline-item">
+            <button (click)="likeMovie(movie)" [disabled]="liked" type="button" size="sm" mdbBtn gradient="peach" mdbWavesEffect>
+              <i class="fas fa-thumbs-up pr-2" aria-hidden="true"></i>
+            </button>
+          </li>
+        
+         
+        </ul>
+
+        <h1>Overview</h1>
+        <mat-divider></mat-divider>
+        <h4>
+          {{ movie.overview}}
+        </h4>
+        <h2>Production Companies</h2>
+        <mat-divider></mat-divider>
+
+        <ul class="list-inline">
+          <li *ngFor="let mv of movie.production_companies" class=" list-inline-item col-sm-4">
+            <h5>{{mv.name}}</h5>
+            <img *ngIf="mv.logo_path" src="{{imageurl}}{{mv.logo_path}}" />
+          </li>
+
+        </ul>
+
+      </div>
+
+      <ng-template #loading>
+        <div style="padding: 30px;" class="col-md-7">
+          Loading ...
+        </div>
+      </ng-template>
+
+    </div>
+  </div>
+</div>

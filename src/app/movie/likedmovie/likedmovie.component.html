@@ -1,0 +1,10 @@
+<div style="margin-top: 100px;" class="container">
+
+   <ul  class="list-inline">
+      <h1>You selected these movies</h1>
+      <mat-divider></mat-divider>
+      <li style="margin-top: 10px;"  class="list-inline-item" *ngFor="let movie of $movies">
+         <img width="150" height="225" src="{{imageurl}}{{movie.poster_path}}" />
+      </li>
+   </ul>
+</div>
