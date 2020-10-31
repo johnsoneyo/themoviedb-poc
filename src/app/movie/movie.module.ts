@@ -14,6 +14,7 @@ import { MoviedetailComponent } from '../movies/moviedetail/moviedetail.componen
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import {MatDividerModule} from '@angular/material/divider';
 import {MatButtonModule} from '@angular/material/button';
+import { HeaderComponent } from './header/header.component';
  
 
 const appRoutes: Routes = [
@@ -22,7 +23,7 @@ const appRoutes: Routes = [
 ];
 
 @NgModule({
-  declarations: [HomepageComponent, MoviesComponent, SearchComponent, MoviedetailComponent],
+  declarations: [HomepageComponent, MoviesComponent, SearchComponent, MoviedetailComponent, HeaderComponent],
   exports: [HomepageComponent],
   imports: [
     CommonModule,
