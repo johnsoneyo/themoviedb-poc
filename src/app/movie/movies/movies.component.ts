@@ -32,7 +32,6 @@ export class MoviesComponent implements OnInit {
   viewPage(page: number) {
     this.showProgress = true;
     setTimeout(() => {
-      console.log('Slow down activity to fetch next page');
     }, 3000 );  
     this.getData(page);
   }
@@ -43,7 +42,6 @@ export class MoviesComponent implements OnInit {
     this.movieService.getUpcomingMovies(page.toString())
       .subscribe(data => {
         this.movies = data.results;
-        console.log(data);
         this.pages = Array(data.total_pages).fill(0).map((x, i) => i + 1);
         this.lastPage = data.total_pages;
         this.currentPage = page;

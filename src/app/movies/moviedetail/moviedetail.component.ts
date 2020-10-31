@@ -15,10 +15,9 @@ export class MoviedetailComponent implements OnInit {
   $movie: Observable<any>;
   $imageurl: Observable<any>;
 
-  imageurl : string;
-  liked : boolean = false;
-  unliked: boolean = true;
-
+  imageurl: string;
+  liked: boolean = false;
+  
   constructor(
     private movieService: MovieService,
     private route: ActivatedRoute,
@@ -29,30 +28,33 @@ export class MoviedetailComponent implements OnInit {
   ngOnInit(): void {
     this.imageurl = env.image_base_url.concat('/w92');
     const movieId = this.route.snapshot.paramMap.get('id');
-    this.movieService.getMovieDetail(parseInt(movieId)).subscribe(data => {
-       this.$movie = new Observable(observable => {
-            observable.next(data);
-            this.$imageurl = new Observable(observable => {
-               observable.next( env.image_base_url.concat('/w500').concat(data.poster_path));
-            });
-          
-       });
-    })
 
-    this.sharedService.getMovies().subscribe(data => {
-        if(data.has(parseInt(movieId))){
+    this.movieService.getMovieDetail(parseInt(movieId))
+      .subscribe(data => {
+        this.$movie = new Observable(observable => {
+          observable.next(data);
+          this.$imageurl = new Observable(observable => {
+            observable.next(env.image_base_url.concat('/w500').concat(data.poster_path));
+          });
+
+        });
+      })
+
+    this.sharedService.getMovies()
+      .subscribe(data => {
+        var found = data.map(e => e.id ).find(g => g === movieId);
+        if (!found) {
           this.liked = true;
-          this.unliked = false;
         }
-    });
+      });
   }
 
-  likeMovie(data : any ){
-      this.sharedService.sendMessage(data.id);
+  likeMovie(data: any) {
+    this.sharedService.sendMessage(data);
   }
 
-  unlikeMovie(data : any ){
+  unlikeMovie(data: any) {
     this.sharedService.sendMessage(data.id);
-}
+  }
 
 }

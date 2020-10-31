@@ -20,7 +20,8 @@ import { LikedmovieComponent } from './likedmovie/likedmovie.component';
 
 const appRoutes: Routes = [
   { path: '', component: MoviesComponent },
-  { path: 'detail/:id', component: MoviedetailComponent }
+  { path: 'detail/:id', component: MoviedetailComponent },
+  {path : 'liked-movies',component: LikedmovieComponent}
 ];
 
 @NgModule({

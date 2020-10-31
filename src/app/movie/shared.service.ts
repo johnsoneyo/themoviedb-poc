@@ -10,10 +10,10 @@ export class SharedService {
 
   likesubject = new Subject<any>();
   unlikesubject = new Subject<any>();
-  subjectMovies = new Subject<Set<number>>();
+  subjectMovies = new Subject<any>();
 
   sendMessage(message: string) {
-    this.likesubject.next({ text: message });
+    this.likesubject.next( message );
   }
 
   sendUnlikeMessage(message: string) {
@@ -32,11 +32,11 @@ export class SharedService {
     return this.unlikesubject.asObservable();
   }
 
-  getMovies():Observable<Set<number>>{
+  getMovies():Observable<any[]>{
     return this.subjectMovies.asObservable();
   }
 
-  sendMovies(movies : Set<number>){
+  sendMovies(movies : any){
     this.subjectMovies.next(movies);
   }
 

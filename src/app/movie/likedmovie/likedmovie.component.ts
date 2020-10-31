@@ -1,4 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { SharedService } from '../shared.service';
+import { MovieService } from '../movie.service';
+import { Observable } from 'rxjs';
+import { environment as env } from '../../../environments/environment';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-likedmovie',
@@ -7,9 +12,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LikedmovieComponent implements OnInit {
 
-  constructor() { }
+  $movies: any;
+  imageurl: string;
+
+  constructor(private sharedService: SharedService,
+    private movieService: MovieService,
+    private router: Router) { 
+      this.$movies = this.router.getCurrentNavigation().extras.state.values;
+
+    }
 
   ngOnInit(): void {
+    this.imageurl = env.image_base_url.concat('/w300');
   }
+
+
 
 }
