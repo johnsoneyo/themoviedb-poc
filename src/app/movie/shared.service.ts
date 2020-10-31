@@ -9,15 +9,19 @@ export class SharedService {
   constructor() { }
 
   likesubject = new Subject<any>();
-  unlikesubject = new Subject<any>();
+  searchSubject = new Subject<any>();
   subjectMovies = new Subject<any>();
 
   sendMessage(message: string) {
     this.likesubject.next( message );
   }
 
-  sendUnlikeMessage(message: string) {
-    this.unlikesubject.next({ text: message });
+  search(title : string) {
+    this.searchSubject.next(title);
+  }
+
+  getSearch():Observable<any>{
+    return this.searchSubject.asObservable();
   }
 
   clearMessages() {
@@ -26,10 +30,6 @@ export class SharedService {
 
   getMessage(): Observable<any> {
     return this.likesubject.asObservable();
-  }
-
-  getunlikeMessage(): Observable<any> {
-    return this.unlikesubject.asObservable();
   }
 
   getMovies():Observable<any[]>{

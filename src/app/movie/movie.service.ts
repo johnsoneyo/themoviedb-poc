@@ -24,5 +24,13 @@ export class MovieService {
       return this.http.get(env.movies_base_url.concat('/movie/'+movieId), { params }).pipe(map((data) => data));
   }
 
+  searchMovie(title : string,page : string):Observable<any>{
+    const params = new HttpParams()
+    .set('query', title)
+    .set('page',page)
+    .set('language', 'en-US');
+    return this.http.get(env.movies_base_url.concat('/search/movie'),{params}).pipe(map((data) => data))
+  }
+
 
 }
